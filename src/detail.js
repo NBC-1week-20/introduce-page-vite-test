@@ -14,8 +14,6 @@ const firebaseConfig = {
     measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-console.log(firebaseConfig);
-
 async function ykm() {
     // const firebaseConfig = response.json();
     // Firebase 인스턴스 초기화
@@ -29,18 +27,20 @@ async function ykm() {
 
         let content = $('#comment-content').val();
 
+        // TODO timestapm doc에도 추가
+
         let doc = {
             'author_name': author,
             'content': content
         }
 
         await addDoc(collection(db, "details"), doc);
-
+        // TODO alert 추가
         window.location.reload();
 
     })
 
-    // Firebase에서 데이터 불러오기
+    // Firebase에서 데이터 불러오기 TODO Order By 추가
     let docs = await getDocs(collection(db, "details"));
 
     // 새로운 댓글 목록 생성

@@ -1,4 +1,39 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { collection } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getDocs, orderBy, query, limit } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
 import members from "./memberData.js";
+
+const firebaseConfig = {
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// 최신 댓글 3개 불러오기
+async function fetchLatestComments() {
+    let commentsContainer = document.getElementById("comment-list");
+    commentsContainer.innerHTML = "";  // 기존 댓글 초기화
+    let docs = await getDocs(query(collection(db, "details"), orderBy("timestamp", "desc"), limit(3)));
+    docs.forEach((doc) => {
+        let row = doc.data();
+        let author_data = row['author_name'];
+        let content_data = row['content'];
+        let date = row['timestamp'] ? row['timestamp'].toDate().toLocaleString() : "날짜 없음";
+        let temp_html = `<p class="comment"><strong>${author_data}:</strong> ${content_data} <br> <small>${date}</small></p>`;
+        commentsContainer.innerHTML += temp_html;
+    });
+}
+
+window.onload = fetchLatestComments;
 
 function memberCard(member) {
   return `

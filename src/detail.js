@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getDocs, orderBy, query, Timestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -27,41 +27,39 @@ async function ykm() {
 
         let content = $('#comment-content').val();
 
-        // TODO timestapm doc에도 추가
+        let timestamp = Timestamp.fromDate(new Date());  // 현재 시간 저장
 
         let doc = {
             'author_name': author,
-            'content': content
+            'content': content,
+            'timestamp': timestamp
         }
 
         await addDoc(collection(db, "details"), doc);
-        // TODO alert 추가
+        alert('작성완료!');
         window.location.reload();
 
     })
 
-    // Firebase에서 데이터 불러오기 TODO Order By 추가
-    let docs = await getDocs(collection(db, "details"));
-
-    // 새로운 댓글 목록 생성
-    let temp_html = '';
-
+// Firebase에서 데이터 불러오기
+    let docs = await getDocs(query(collection(db, "details"), orderBy("timestamp", "desc")));
     docs.forEach((doc) => {
         let row = doc.data();
         let author_data = row['author_name'];
         let content_data = row['content'];
-
-        temp_html += `
+        let date = row['timestamp'].toDate().toLocaleString();
+        let temp_html = `
+    <ul class="comment-list">
         <li class="comment">
           <div class="author">${author_data}</div>
           <div class="content">${content_data}</div>
+          <small class="timestamp">${date}</small>
         </li>
+    </ul>
     `;
 
+        $('.comment-list').before(temp_html); // 기존 .comment-list의 바깥쪽 앞에 추가
     });
-
-    // 기존 ul태그 내부 내용 갱신
-    $('.comment-list').html(temp_html);
     
 
 }

@@ -26,7 +26,7 @@ async function ykm() {
         let author = $('#author-name').val();
 
         let content = $('#comment-content').val();
-
+        
         let timestamp = Timestamp.fromDate(new Date());  // 현재 시간 저장
 
         let doc = {
@@ -43,25 +43,26 @@ async function ykm() {
 
 // Firebase에서 데이터 불러오기
     let docs = await getDocs(query(collection(db, "details"), orderBy("timestamp", "desc")));
+// 새로운 댓글 목록 생성
+    let temp_html = '';
     docs.forEach((doc) => {
         let row = doc.data();
         let author_data = row['author_name'];
         let content_data = row['content'];
         let date = row['timestamp'].toDate().toLocaleString();
-        let temp_html = `
-    <ul class="comment-list">
-        <li class="comment">
+        temp_html += `
+    <li class="comment">
           <div class="author">${author_data}</div>
           <div class="content">${content_data}</div>
           <small class="timestamp">${date}</small>
         </li>
-    </ul>
     `;
 
-        $('.comment-list').before(temp_html); // 기존 .comment-list의 바깥쪽 앞에 추가
+        
     });
+    // 기존 ul태그 내부 내용 갱신
+    $('.comment-list').html(temp_html);
     
-
 }
 
 /**

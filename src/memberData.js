@@ -14,8 +14,8 @@ const members = [
     {
         name: "소진오",
         id: "3",
-        image: "https://cdn.pixabay.com/photo/2023/11/20/23/06/woman-8402052_1280.jpg",
-        description: "66789"
+        image: "./asset/images/jin_profile_image.jpg",
+        description: "안녕하세요. 스프링 6기 소진오입니다.\n취미는 정말 많은데 그 중에 제일 좋아하는 취미는 축구 보는 거랑 음악 듣기 등등 있습니다."
     },
     {
         name: "장희수",

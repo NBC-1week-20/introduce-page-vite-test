@@ -8,7 +8,7 @@ const members = [
     {
         name: "윤경모",
         id: "2",
-        image: "https://cdn.pixabay.com/photo/2017/08/07/14/15/woman-2604283_1280.jpg",
+        image: "./asset/images/kjm_profile_image.jpg",
         description: "4567"
     },
     {
@@ -21,7 +21,7 @@ const members = [
         name: "장희수",
         id: "4",
         image: "./asset/images/jhs_profile_image.jpeg",
-        description: "899"
+        description: "안녕하세요,\nSpring 6기 1주차 20조의 장희수입니다.\n\n많이 미숙하지만 실력을 키워 쓸만한(?) 개발자가 되고자 합니다.\n취미로는 이것저것 만들거나 게임하기를 좋아합니다.\n\n잘 부탁드립니다!"
     }
 ]
 

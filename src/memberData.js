@@ -3,7 +3,7 @@ const members = [
         name: "김정민",
         id: "1",
         image: "./asset/images/kjm_profile_image.jpeg",
-        description: "1234sdkfjheiwufh\noiefjwoeifjowiejfoijowiejf"
+        description: "안녕하세요~ 스프링 6기에 합류한 김정민입니다!\n\n이것 저것 코드 짜는거 좋아하고 얘기하는거 좋아합니다~ 취미로는 운동 하고 있어요.\n\n잘 부탁드립니다~"
     },
     {
         name: "윤경모",

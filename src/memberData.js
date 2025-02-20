@@ -8,7 +8,7 @@ const members = [
     {
         name: "윤경모",
         id: "2",
-        image: "https://cdn.pixabay.com/photo/2017/08/07/14/15/woman-2604283_1280.jpg",
+        image: "./asset/images/ykm_profile_image.jpg",
         description: "4567"
     },
     {
@@ -21,7 +21,7 @@ const members = [
         name: "장희수",
         id: "4",
         image: "./asset/images/jhs_profile_image.jpeg",
-        description: "899"
+        description: "안녕하세요,\n스프링 6기 장희수입니다.\n\n취미로는 이것저것 만들거나 게임하기를 좋아하며,\n개인 페이지는 제가 좋아하는 것들의 사진으로 채워보았습니다.\n\n잘 부탁드립니다!"
     }
 ]
 
